@@ -5,7 +5,7 @@ from flask_cors import CORS
 import random
 
 app = Flask(__name__)
-CORS(app)
+CORS(app,origins=['https://chess-zhwx.onrender.com'])
 
 @app.route("/analyze", methods=["POST"])
 def make_move():
@@ -17,7 +17,6 @@ def make_move():
     random_move = random.choice(legal_moves)
     board.push(random_move)
     response=jsonify({"move": str(random_move), "board": board.fen()})
-    response.headers.add('Access-Control-Allow-Origin', '*')
     response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
     response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
     return response
