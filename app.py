@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from chess import Board, Move
+from chess import Board
 from flask_cors import CORS
 
 import random
@@ -17,7 +17,9 @@ def make_move():
     random_move = random.choice(legal_moves)
     board.push(random_move)
     response=jsonify({"move": str(random_move), "board": board.fen()})
-    response.headers.add('Access-Control-Allow-Origin', request.headers.get('Origin'))
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
     return response
 
 
